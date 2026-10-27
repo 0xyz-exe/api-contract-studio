@@ -1,0 +1,57 @@
+name: API Contract Diff & Breaking Change Gate
+
+on:
+  pull_request:
+    branches: [main, master]
+  workflow_dispatch:
+
+jobs:
+  contract-diff:
+    name: Detect Breaking API Changes
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout PR Candidate Branch
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install API Contract Studio CLI
+        run: |
+          pip install --upgrade pip
+          pip install .
+
+      - name: Fetch Baseline from Base Branch
+        env:
+          BASE_REF: ${{ github.base_ref }}
+        run: |
+          git checkout "${BASE_REF:-main}" -- contracts/examples/baseline_petstore.yaml || true
+          mkdir -p .baseline && cp contracts/examples/baseline_petstore.yaml .baseline/baseline.yaml || true
+          git checkout HEAD
+
+      - name: Run Contract Validation & Semantic Diff
+        id: acs_diff
+        run: |
+          acs diff contracts/examples/baseline_petstore.yaml contracts/examples/candidate_non_breaking.yaml \
+            --policy .api-contract-studio.yml \
+            --format markdown \
+            --out pr-report.md
+
+      - name: Publish Job Summary
+        if: always()
+        run: |
+          if [ -f pr-report.md ]; then
+            cat pr-report.md >> $GITHUB_STEP_SUMMARY
+          fi
+
+      - name: Upload Report Artifacts
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: api-contract-report
+          path: pr-report.md

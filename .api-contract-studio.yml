@@ -1,0 +1,19 @@
+version: 1
+
+contracts:
+  - name: petstore-api
+    baseline: contracts/examples/baseline_petstore.yaml
+    candidate: contracts/examples/candidate_non_breaking.yaml
+
+policy:
+  fail_on:
+    - BREAKING
+  potentially_breaking: warn
+  severity_threshold: HIGH
+  ignored_rules:
+    - ACS-DOC-CHANGED
+
+report:
+  formats:
+    - json
+    - markdown

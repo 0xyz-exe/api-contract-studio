@@ -1,0 +1,20 @@
+@import "tailwindcss";
+
+:root {
+  --background: #090a0f;
+  --foreground: #f8fafc;
+  --card: #111420;
+  --card-foreground: #f8fafc;
+  --border: #1e2438;
+  --muted: #1e2438;
+  --muted-foreground: #94a3b8;
+  --accent: #10b981;
+  --accent-foreground: #ffffff;
+}
+
+body {
+  background-color: var(--background);
+  color: var(--foreground);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  min-height: 100vh;
+}
