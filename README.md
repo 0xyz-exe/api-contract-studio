@@ -12,13 +12,31 @@ API Contract Studio is an open-source platform for defining, validating, testing
 
 - **Semantic OpenAPI Diff Engine**: Detects endpoint removals, method removals, required parameter additions, schema type changes, narrowed enums, and response property removals across OpenAPI 3.0.x and 3.1.x.
 - **Interactive Visual Diff Explorer**: Web UI to inspect contract changes with severity filters, compatibility tags, JSON Pointer locations, and remediation recommendations.
-
-![Visual Contract Diff & Breaking Change Analyzer](docs/assets/visual-diff.png)
-
+- **Quality & Governance Dashboard**: Overview of registered contracts, breaking changes detected, and CI pass rates.
 - **Standalone CLI (`acs`)**: Zero-server local contract validation and diffing with deterministic exit codes (`0`, `1`, `2`, `3`).
 - **Live Contract Testing**: Verifies real service responses against OpenAPI schemas with strict SSRF defense.
 - **Immutable Contract Revisioning**: Prevents silent history overwrites; restores create audited new revisions.
 - **CI/CD Integration**: Pre-configured GitHub Actions workflow for pull-request gating with Markdown step summaries.
+
+---
+
+## Screenshots
+
+### 1. Visual Contract Diff & Breaking Change Analyzer
+Inspect semantic differences, breaking changes, and remediation suggestions:
+![Visual Contract Diff](docs/assets/visual-diff.png)
+
+### 2. Quality & Governance Dashboard
+Track API contracts, CI pass rates, and blocked regressions:
+![Quality Dashboard](docs/assets/dashboard.png)
+
+### 3. Live Contract Testing Engine
+Execute real HTTP tests against targets with automated schema validation and SSRF guards:
+![Live Testing](docs/assets/live-testing.png)
+
+### 4. API Project & Workspace Management
+Organize services, environments, and contract revisions:
+![Projects Workspace](docs/assets/projects.png)
 
 ---
 
